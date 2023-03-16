@@ -31,7 +31,7 @@
       :filtered_items {
          ; :hide_gitignored false
          :always_show [ ;; remains visible even if other settings would normally hide it
-           ".gitignored"
+           ".gitignore"
          ]
       }
       :follow_current_file true

@@ -49,3 +49,4 @@ vscode-java-test/
 
 snippet/
 plugin/packer_compiled.lua
+lazy-lock.json

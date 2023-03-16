@@ -25,6 +25,7 @@
 (lazy-startup!
    ;; (use-rocks! "fun")
 
+   ; (use! "wbthomason/packer.nvim") ;; Have packer manage itself
    (use! "folke/lazy.nvim")
    (use! "rktjmp/hotpot.nvim")
    (use! "Tastyep/structlog.nvim" {
@@ -38,7 +39,6 @@
 
    (use! "antoinemadec/FixCursorHold.nvim") ;; Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 
-   (use! "wbthomason/packer.nvim") ;; Have packer manage itself
    ; (use! "rktjmp/hotpot.nvim") ;; .fnl
    (use! "max397574/which-key.nvim")
 
@@ -47,7 +47,7 @@
    (use! "nvim-lua/popup.nvim")
    (use! "nvim-lua/plenary.nvim") ;; Useful lua functions used by lots of plugins
    (use! "rcarriga/nvim-notify" {
-      :requires [ "nvim-telescope/telescope.nvim" ]
+      :dependencies [ "nvim-telescope/telescope.nvim" ]
       :config (setup! :notify)
    })
    (use! "stevearc/dressing.nvim" {
@@ -127,7 +127,7 @@
    ;; (use! "lunarvim/onedarker.nvim")
    ;; (use! "lunarvim/darkplus.nvim")
    (use! "catppuccin/nvim" {
-      :as "catppuccin"
+      :name "catppuccin"
       :build (lambda [] (let
          [cat (require "catppuccin")]
          (cat.compile)
@@ -141,10 +141,10 @@
    (use! "hrsh7th/nvim-cmp")
    (use! "hrsh7th/cmp-buffer")
    (use! "tzachar/fuzzy.nvim" {
-      :requires ["nvim-telescope/telescope-fzf-native.nvim"]
+      :dependencies ["nvim-telescope/telescope-fzf-native.nvim"]
    })
    (use! "tzachar/cmp-fuzzy-buffer" {
-      :requires ["tzachar/fuzzy.nvim"]
+      :dependencies ["tzachar/fuzzy.nvim"]
    })
    (use! "hrsh7th/cmp-path")
    (use! "hrsh7th/cmp-nvim-lsp")
@@ -159,7 +159,7 @@
    })
    (use! "zbirenbaum/copilot-cmp" {
       :module "copilot_cmp"
-      :after [
+      :dependencies [
          "copilot.lua"
          "nvim-cmp"
       ]
@@ -193,7 +193,7 @@
    })
    (use! "kevinhwang91/promise-async")
    (use! "kevinhwang91/nvim-ufo" {
-      :requires ["kevinhwang91/promise-async"]
+      :dependencies ["kevinhwang91/promise-async"]
       :config (setup! :ufo)
    })
    (use! "kosayoda/nvim-lightbulb" {
@@ -254,14 +254,14 @@
    ;; Treesitter/Highlighting
    (use! "nvim-treesitter/nvim-treesitter" {
       :build ":TSUpdate"
-      :as "nvim-treesitter"
+      :name "nvim-treesitter"
       :config (setup! :treesitter)
    })
    (use! "p00f/nvim-ts-rainbow" {
-      :after ["nvim-treesitter"]
+      :dependencies ["nvim-treesitter"]
    })
    (use! "JoosepAlviste/nvim-ts-context-commentstring" {
-      :after ["nvim-treesitter"]
+      :dependencies ["nvim-treesitter"]
    })
 
    (use! "nvim-treesitter/nvim-treesitter-context")
@@ -318,7 +318,6 @@
    (use! "nacro90/numb.nvim" {
       :event "BufNew"
       :config (setup! :numb)
-      :centered_peeking true
    })
    (use! "karb94/neoscroll.nvim" {
       :config (setup! :neoscroll)
@@ -354,12 +353,12 @@
    ;; (n)org
    (use! "nvim-neorg/neorg" {
       :ft ["norg"]
-      :after ["nvim-treesitter"]
+      :dependencies ["nvim-treesitter"]
       :config (setup! :neorg)
    })
    (use! "nvim-orgmode/orgmode" {
       :ft ["org"]
-      :after ["nvim-treesitter"]
+      :dependencies ["nvim-treesitter"]
       :config (setup! :orgmode)
    })
    ;; Misc
@@ -384,7 +383,7 @@
    (use! "ellisonleao/glow.nvim" {
    })
    (use! "CRAG666/code_runner.nvim" {
-      :requires "nvim-lua/plenary.nvim"
+      :dependencies "nvim-lua/plenary.nvim"
       :config (setup! :code_runner)
    })
 
