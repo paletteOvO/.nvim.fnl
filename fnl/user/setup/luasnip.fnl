@@ -2,8 +2,10 @@
 
 (require-as! luasnip :luasnip)
 
-(require-as! vscode_loader :luasnip.loaders.from_vscode)
+(vim.schedule (lambda []
+   (require-as! vscode_loader :luasnip.loaders.from_vscode)
+   (vscode_loader.load {
+      :path [ "./snippet" ]
+   })
+))
 
-(vscode_loader.load {
-   :path [ "./snippet" ]
-})

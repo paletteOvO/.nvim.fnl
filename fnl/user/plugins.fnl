@@ -2,7 +2,7 @@
 (import-macros { : use! : use-rocks! : setup! : lite-setup! : lazy-startup! } :user.macros.package)
 
 ;; Use a protected call so we don't error out on first use
-(local (status_ok lazy) (pcall require :lazy))
+(local (status_ok _lazy) (pcall require :lazy))
 (if (not status_ok)
    (lua "return")
 )
@@ -33,20 +33,18 @@
       :commit "6f1403a192791ff1fa7ac845a73de9e860f781f1"
    })
 
-   (use! "dstein64/vim-startuptime" {
-      :cmd [ "StartupTime" ]
-   })
+   ; (use! "dstein64/vim-startuptime" {
+   ;    :cmd [ "StartupTime" ]
+   ; })
 
    (use! "antoinemadec/FixCursorHold.nvim") ;; Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 
-   ; (use! "rktjmp/hotpot.nvim") ;; .fnl
    (use! "max397574/which-key.nvim")
-
-
 
    (use! "nvim-lua/popup.nvim")
    (use! "nvim-lua/plenary.nvim") ;; Useful lua functions used by lots of plugins
    (use! "rcarriga/nvim-notify" {
+      :event "User AlphaLeave"
       :dependencies [ "nvim-telescope/telescope.nvim" ]
       :config (setup! :notify)
    })
@@ -64,13 +62,19 @@
       :cmd [ "ParinferOn" ]
    })
 
-   (use! "guns/vim-sexp")
-   (use! "tpope/vim-sexp-mappings-for-regular-people")
+   (use! "guns/vim-sexp" {
+      :ft lisp-ft
+   })
+   (use! "tpope/vim-sexp-mappings-for-regular-people" {
+      :ft lisp-ft
+   })
+
    (use! "windwp/nvim-autopairs" {
       :config (setup! :autopairs)
    }) ;; Autopairs, integrates with both cmp and treesitter
    (use! "numToStr/Comment.nvim" {
-         :config (setup! :comment)
+      :event "User AlphaLeave"
+      :config (setup! :comment)
    })
    ;; (use! "Olical/conjure" {
    ;;    :branch "develop"
@@ -89,36 +93,33 @@
       :branch "v2.x"
       :config (setup! :neotree)
       :cmd [ "Neotree" ]
+      ; :event "User AlphaLeave"
    })
    ; (use! "kyazdani42/nvim-web-devicons" {
    ; })
 
    ; (use! "akinsho/bufferline.nvim" {
-   ;    :event "BufNew"
    ;    :config (setup! :bufferline)
    ; })
-   (use! "nvim-lualine/lualine.nvim"
-      {
-         :event "BufNew"
-         :config (setup! :lualine)
-      }
-   )
+   (use! "nvim-lualine/lualine.nvim" {
+      :event "User AlphaLeave"
+      :config (setup! :lualine)
+   })
    (use! "tiagovla/scope.nvim" {
-      :event "BufNew"
       :config (setup! :scope)
    })
 
    (use! "moll/vim-bbye")
    (use! "ahmedkhalf/project.nvim" {
+      :event "User AlphaReady"
       :config (setup! :project)
    })
    (use! "lukas-reineke/indent-blankline.nvim" {
-      :event "BufNew"
+      :event "User AlphaLeave"
       :config (setup! :indentline)
    })
    (use! "goolord/alpha-nvim" {
       ;; :after ["indent-blankline.nvim" "bufferline.nvim"]
-      ;; :event "VimEnter"
       ;; :config (setup! :alpha)
    })
 
@@ -138,8 +139,10 @@
    })
 
    ;; cmp plugins
-   (use! "hrsh7th/nvim-cmp")
-   (use! "hrsh7th/cmp-buffer")
+   (use! "hrsh7th/nvim-cmp" {
+   })
+   (use! "hrsh7th/cmp-buffer" {
+   })
    (use! "tzachar/fuzzy.nvim" {
       :dependencies ["nvim-telescope/telescope-fzf-native.nvim"]
    })
@@ -154,7 +157,6 @@
 
    ;; (use! "github/copilot.vim") ;; for setup copilot
    (use! "zbirenbaum/copilot.lua" {
-      :event "BufNew"
       :config (setup! :copilot)
    })
    (use! "zbirenbaum/copilot-cmp" {
@@ -171,44 +173,64 @@
    })
 
    (use! "rafamadriz/friendly-snippets" {
-      :event "BufNew"
    })
    ;; (use! "folke/lua-dev.nvim") ;; we don't use lua anyway
 
    ;; LSP
-   (use! "neovim/nvim-lspconfig") ;; enable LSP
+   (use! "neovim/nvim-lspconfig" {
+      :event "User AlphaLeave"
+   }) ;; enable LSP
    ;; (use! "williamboman/nvim-lsp-installer") ;; simple to use language server installer
    (use! "williamboman/mason.nvim" {
+      :cmd [ "Mason" ]
+      :event "User AlphaLeave"
       ;; :config (setup! :mason)
    })
-   (use! "williamboman/mason-lspconfig")
+   (use! "williamboman/mason-lspconfig" {
+      :cmd [ "Mason" ]
+      :event "User AlphaLeave"
+   })
+
    ;; for formatters and linters
    (use! "jose-elias-alvarez/null-ls.nvim" {
+      :event "User AlphaLeave"
+      :dependencies ["nvim-lspconfig"]
    })
    ; (use! "VonHeikemen/lsp-zero.nvim" {
    ;    :branch "v2.x"
    ; })
    (use! "RRethy/vim-illuminate" {
+      :event "User AlphaLeave"
       :config (setup! :illuminate)
+      :dependencies ["nvim-lspconfig"]
    })
    (use! "kevinhwang91/promise-async")
    (use! "kevinhwang91/nvim-ufo" {
+      :event "User AlphaLeave"
       :dependencies ["kevinhwang91/promise-async"]
       :config (setup! :ufo)
    })
    (use! "kosayoda/nvim-lightbulb" {
+      :event "User AlphaLeave"
       :config (setup! :lightbulb)
+      :dependencies ["nvim-lspconfig"]
    })
    (use! "lewis6991/hover.nvim" {
+      :event "User AlphaLeave"
       :config (setup! :hover)
+      :dependencies ["nvim-lspconfig"]
    })
    ;; (use! "/home/shironya/.config/nvim/lsp_lines.nvim" {
    ;;    :config (setup! :lsp_lines)
    ;; })
    (use! "https://git.sr.ht/~whynothugo/lsp_lines.nvim" {
+      :event "User AlphaLeave"
+      :dependencies ["nvim-lspconfig"]
       :config (setup! :lsp_lines)
    })
    (use! "lvimuser/lsp-inlayhints.nvim" {
+      :event "User AlphaLeave"
+      :dependencies ["nvim-lspconfig"]
       :config (lite-setup! :lsp-inlayhints {
          :labels_separator " // "
       })
@@ -222,9 +244,11 @@
    ;;    :config (setup! :pretty-fold)
    ;; })
    (use! "jose-elias-alvarez/typescript.nvim" {
+      :ft ["typescript"]
       :config (setup! :typescript_nvim)
    })
    (use! "folke/trouble.nvim" {
+      :event "User AlphaLeave"
       :config (setup! :trouble)
    })
    (use! "weilbith/nvim-code-action-menu" {
@@ -234,17 +258,20 @@
    ;; lsp lang
 
    (use! "simrat39/rust-tools.nvim" {
+      :ft ["rust"]
       :config (setup! :rust-tools)
    })
    (use! "mfussenegger/nvim-jdtls" {})
 
    ;; other lang
    (use! "lervag/vimtex" {
+      :ft ["tex"]
       :config (setup! :vimtex)
    })
 
    ;; Telescope
    (use! "nvim-telescope/telescope.nvim" {
+      :event "User AlphaReady"
       :config (setup! :telescope)
    })
    (use! "nvim-telescope/telescope-fzf-native.nvim" {
@@ -264,8 +291,10 @@
       :dependencies ["nvim-treesitter"]
    })
 
-   (use! "nvim-treesitter/nvim-treesitter-context")
-   (use! "nvim-treesitter/nvim-treesitter-textobjects")
+   (use! "nvim-treesitter/nvim-treesitter-context" {
+   })
+   (use! "nvim-treesitter/nvim-treesitter-textobjects" {
+   })
    (use! "ziontee113/syntax-tree-surfer")
 
    (use! "monkoose/matchparen.nvim" {
@@ -274,7 +303,6 @@
    (use! "kylechui/nvim-surround")
    (use! "rrethy/vim-hexokinase" {
       :build "make hexokinase"
-      :event "BufNew"
       :config (lambda [] (set vim.g.Hexokinase_highlighters [ "backgroundfull" "virtual" ]))
    })
    (use! "windwp/nvim-ts-autotag" {
@@ -291,32 +319,33 @@
    })
 
    ;; formatters
-   (use! "wesleimp/stylua.nvim")
+   (use! "wesleimp/stylua.nvim" {
+      :ft ["lua"]
+   })
    ;; (use! "NMAC427/guess-indent.nvim" {
    ;;    :config (setup! :guess-indent)
    ;; })
    (use! "Darazaki/indent-o-matic" {
+
+      :event "User AlphaLeave"
       :config (setup! :indent-o-matic)
    })
 
 
    ;; git
    (use! "lewis6991/gitsigns.nvim" {
-      :event "BufNew"
+      :event "User AlphaLeave"
       :config (setup! :gitsigns)
    })
 
    (use! "sindrets/diffview.nvim" {
-      :event "BufNew"
    })
 
    ;; Nav
    (use! "phaazon/hop.nvim" {
-      :event "BufNew"
       :config (setup! :hop)
    })
    (use! "nacro90/numb.nvim" {
-      :event "BufNew"
       :config (setup! :numb)
    })
    (use! "karb94/neoscroll.nvim" {
@@ -324,7 +353,6 @@
    })
    ;; (use! "wfxr/minimap.vim" {
    ;;    :run "cargo install code-minimap"
-   ;;    :event "BufRead"
    ;;    :config (setup! :minimap)
    ;; })
 
@@ -372,24 +400,46 @@
       :config (setup! :better-escape)
    })
    (use! "xiyaowong/nvim-transparent" {
+      :lazy false
       :config (setup! :transparent)
    })
 
    ;; (use! "Pocco81/auto-save.nvim" {
-   ;;    :event "BufRead"
    ;;    :config (setup! :autosave)
    ;; })
    (use! "b0o/schemastore.nvim")
    (use! "ellisonleao/glow.nvim" {
+      :cmd ["Glow"]
+      :config (lite-setup! :glow {
+         :style "light"
+      })
    })
    (use! "CRAG666/code_runner.nvim" {
+      :event "User AlphaLeave"
       :dependencies "nvim-lua/plenary.nvim"
       :config (setup! :code_runner)
    })
 
    (opts {
       :defaults {
-         :lazy false
+         ; :lazy true
+      }
+      :ui {
+         :border "rounded"
+         :icons {
+            :cmd "⌘"
+            :config "🛠"
+            :event "📅"
+            :ft "📂"
+            :init "⚙"
+            :keys "🗝"
+            :plugin "🔌"
+            :runtime "💻"
+            :source "📄"
+            :start "🚀"
+            :task "📌"
+            :lazy ""
+         }
       }
    })
 

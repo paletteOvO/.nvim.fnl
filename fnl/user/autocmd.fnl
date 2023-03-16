@@ -46,12 +46,35 @@
 (vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
 
 ;; Remove statusline and tabline when in Alpha
+; (_G.)
+(tset vim.g "nya#alpha_leave" false)
+(vim.cmd "autocmd User AlphaLeave echo")
+
+(autocmd! "User" {
+   :pattern [ "AlphaLeave" ]
+   :callback (lambda []
+      (tset vim.g "nya#alpha_leave" true)
+   )
+})
+
 (autocmd! "User" {
           :pattern [ "AlphaReady"]
           :callback (lambda []
                       (vim.cmd "set showtabline=0
-                               set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3"))})
+                                set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
+                                autocmd BufUnload <buffer> doautocmd User AlphaLeave"))})
 
+(autocmd! "BufWinEnter" {
+   :callback (lambda []
+      (if (not (. vim.g "nya#alpha_leave"))
+         (do
+            (vim.cmd "doautocmd User AlphaReady")
+            (vim.cmd "doautocmd User AlphaLeave")
+         )
+         nil
+      )
+   )
+})
 
 ;; Set wrap and spell in markdown and gitcommit
 (autocmd! "FileType" {
