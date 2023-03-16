@@ -79,17 +79,24 @@
    ;; })
 
    ;; Nvim-tree
-   (use! "kyazdani42/nvim-tree.lua" {
-      :config (setup! :nvim-tree)
-      :cmd [ "NvimTreeToggle" ]
-   })
-   (use! "kyazdani42/nvim-web-devicons" {
-   })
+   ; (use! "kyazdani42/nvim-tree.lua" {
+   ;    :config (setup! :nvim-tree)
+   ;    :cmd [ "NvimTreeToggle" ]
+   ; })
+   (use! "MunifTanjim/nui.nvim")
 
-   (use! "akinsho/bufferline.nvim" {
-      :event "BufNew"
-      :config (setup! :bufferline)
+   (use! "nvim-neo-tree/neo-tree.nvim" {
+      :branch "v2.x"
+      :config (setup! :neotree)
+      :cmd [ "Neotree" ]
    })
+   ; (use! "kyazdani42/nvim-web-devicons" {
+   ; })
+
+   ; (use! "akinsho/bufferline.nvim" {
+   ;    :event "BufNew"
+   ;    :config (setup! :bufferline)
+   ; })
    (use! "nvim-lualine/lualine.nvim"
       {
          :event "BufNew"

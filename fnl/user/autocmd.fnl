@@ -49,7 +49,7 @@
 (autocmd! "User" {
           :pattern [ "AlphaReady"]
           :callback (lambda []
-                      (vim.cmd "set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
+                      (vim.cmd "set showtabline=0
                                set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3"))})
 
 

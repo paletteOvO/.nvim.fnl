@@ -79,6 +79,9 @@
          :show_root true
          :transparent_panel false
       }
+      :neotree {
+         :enabled true
+      }
       :cmp true
       :gitsigns true
       :telescope true

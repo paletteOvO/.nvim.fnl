@@ -12,5 +12,4 @@
 (require "user.lsp")
 
 (require "user.setup")
-
 (require "user.alpha")

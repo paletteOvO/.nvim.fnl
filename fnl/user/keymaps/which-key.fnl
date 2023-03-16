@@ -4,7 +4,7 @@
       ";" [ "<cmd>Alpha<cr>" "Dashboard" ]
       "/" [ "<cmd>lua require('Comment.api').toggle.linewise.current(nil)<cr>" "Comment" ]
       "r" [ "<cmd>RunFile<CR>" "Run Current File" ]
-      :e [ "<cmd>NvimTreeToggle<cr>" "Explorer" ]
+      :e [ "<cmd>Neotree action=show reveal<cr>" "Explorer" ]
       :h [ "<cmd>nohlsearch<cr>" "No Highlight" ]
       :f [ "<cmd>Telescope find_files<cr>" "Find File" ]
       :S [ "<cmd>w!<cr>" "Save" ]

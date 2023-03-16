@@ -38,14 +38,14 @@ local function bootstrap(plugin, commit)
       else
          vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/" .. plugin, plugin_path })
       end
-      vim.opt.rtp:prepend(plugin_path)
       -- vim.cmd("helptags " .. plugin_path .. "/doc")
       vim.g["nya#bootstrap"][plugin] = true
    end
+   vim.opt.rtp:prepend(plugin_path)
 end
 
 -- bootstrap("wbthomason/packer.nvim")
-bootstrap("folke/lazy.nvim.git")
+bootstrap("folke/lazy.nvim")
 bootstrap("rktjmp/hotpot.nvim")
 bootstrap("Tastyep/structlog.nvim", "6f1403a192791ff1fa7ac845a73de9e860f781f1")
 
@@ -68,6 +68,9 @@ do
          },
       })
       debug.traceback = require("fennel").traceback
+   else
+      fprint("failed to load hotpot")
+      return
    end
 end
 
