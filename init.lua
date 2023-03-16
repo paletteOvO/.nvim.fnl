@@ -1,6 +1,22 @@
 -- print = function (...)
 --    logger:info(...)
 -- end
+
+function _G.dump(o)
+   if type(o) == "table" then
+      local s = "{ "
+      for k, v in pairs(o) do
+         if type(k) ~= "number" then
+            k = '"' .. k .. '"'
+         end
+         s = s .. "[" .. k .. "] = " .. _G.dump(v) .. ","
+      end
+      return s .. "} "
+   else
+      return tostring(o)
+   end
+end
+
 local function fprint(string, ...)
    print(string.format(string, ...))
 end
@@ -17,8 +33,7 @@ local function bootstrap(plugin, commit)
       if commit ~= "" and commit ~= nil then
          vim.fn.system({ "git", "clone", "https://github.com/" .. plugin, plugin_path })
          fprint("Selecting " .. commit .. " for " .. plugin)
-         fprint("'cd " .. plugin_path .. " && " .. "git reset --hard " .. commit .. "'")
-         vim.fn.system({ "sh", "-c", "'cd " .. plugin_path .. " && " .. "git reset --hard " .. commit .. "'" })
+         vim.fn.system({ "git", "-C", plugin_path, "checkout", commit, })
       else
          vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/" .. plugin, plugin_path })
       end
@@ -27,7 +42,7 @@ local function bootstrap(plugin, commit)
    end
 end
 
-bootstrap("wbthomason/packer.nvim")
+-- bootstrap("wbthomason/packer.nvim")
 bootstrap("folke/lazy.nvim.git")
 bootstrap("rktjmp/hotpot.nvim")
 bootstrap("Tastyep/structlog.nvim", "6f1403a192791ff1fa7ac845a73de9e860f781f1")
