@@ -25,7 +25,8 @@ vim.g["nya#bootstrap"] = {}
 
 local function bootstrap(plugin, commit)
    local _, _, plugin_name = string.find(plugin, [[%S+/(%S+)]])
-   local plugin_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/" .. plugin_name
+   -- local plugin_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/" ..
+   local plugin_path = vim.fn.stdpath("data") .. "/lazy/" .. plugin_name
    vim.g["nya#bootstrap"][plugin] = false
    if vim.fn.empty(vim.fn.glob(plugin_path)) > 0 then
       fprint("Couldn't find '%s', cloning new copy to %s", plugin_name, plugin_path)
@@ -33,10 +34,11 @@ local function bootstrap(plugin, commit)
       if commit ~= "" and commit ~= nil then
          vim.fn.system({ "git", "clone", "https://github.com/" .. plugin, plugin_path })
          fprint("Selecting " .. commit .. " for " .. plugin)
-         vim.fn.system({ "git", "-C", plugin_path, "checkout", commit, })
+         vim.fn.system({ "git", "-C", plugin_path, "checkout", commit })
       else
          vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/" .. plugin, plugin_path })
       end
+      vim.opt.rtp:prepend(plugin_path)
       -- vim.cmd("helptags " .. plugin_path .. "/doc")
       vim.g["nya#bootstrap"][plugin] = true
    end

@@ -16,11 +16,12 @@ local servers = {
    "rust_analyzer",
    "texlab",
    "jdtls",
+   "fennel_language_server",
 }
 
 lsp_installer.setup()
 
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({ automatic_installation = true })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status_ok then

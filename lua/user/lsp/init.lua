@@ -1,15 +1,15 @@
-local status_ok, _ = pcall(require, "lspconfig")
+local status_ok, _ = pcall(require, "mason-lspconfig")
 if not status_ok then
    return
 end
 
-local lsp = require("lsp-zero").preset({})
-
-lsp.on_attach(function(client, bufnr)
-   lsp.default_keymaps({ buffer = bufnr })
-end)
-
-lsp.setup()
+-- local lsp = require("lsp-zero").preset({})
+--
+-- lsp.on_attach(function(client, bufnr)
+--    lsp.default_keymaps({ buffer = bufnr })
+-- end)
+--
+-- lsp.setup()
 
 require("user.lsp.lsp-installer")
 require("user.lsp.handlers").setup()

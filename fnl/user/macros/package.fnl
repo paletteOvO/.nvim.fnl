@@ -74,7 +74,6 @@
          (do
             ,...
          )
-         (_G.logger:info (_G.dump pkgs#))
          (lazy#.setup pkgs# opts#)
       )
    )

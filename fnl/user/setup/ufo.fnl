@@ -23,7 +23,7 @@
 )
 
 (local language_servers (do 
-   (require-as! lsp_installer "mason")
+   (require-as! lsp_installer "mason-lspconfig")
    (local srv (lsp_installer.get_installed_servers))
    (map srv (lambda [x] (. x :name)))
 ))

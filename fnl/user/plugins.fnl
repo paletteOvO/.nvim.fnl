@@ -24,6 +24,14 @@
 ;; Install your plugins here
 (lazy-startup!
    ;; (use-rocks! "fun")
+
+   (use! "folke/lazy.nvim")
+   (use! "rktjmp/hotpot.nvim")
+   (use! "Tastyep/structlog.nvim" {
+      :pin true
+      :commit "6f1403a192791ff1fa7ac845a73de9e860f781f1"
+   })
+
    (use! "dstein64/vim-startuptime" {
       :cmd [ "StartupTime" ]
    })
@@ -31,11 +39,9 @@
    (use! "antoinemadec/FixCursorHold.nvim") ;; Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 
    (use! "wbthomason/packer.nvim") ;; Have packer manage itself
-   (use! "rktjmp/hotpot.nvim") ;; .fnl
+   ; (use! "rktjmp/hotpot.nvim") ;; .fnl
    (use! "max397574/which-key.nvim")
-   (use! "Tastyep/structlog.nvim" {
-      :commit "6f1403a192791ff1fa7ac845a73de9e860f781f1"
-   })
+
 
 
    (use! "nvim-lua/popup.nvim")
@@ -172,11 +178,9 @@
    ;; for formatters and linters
    (use! "jose-elias-alvarez/null-ls.nvim" {
    })
-   (use! "tamago324/nlsp-settings.nvim" {
-   })
-   (use! "VonHeikemen/lsp-zero.nvim" {
-      :branch "v2.x"
-   })
+   ; (use! "VonHeikemen/lsp-zero.nvim" {
+   ;    :branch "v2.x"
+   ; })
    (use! "RRethy/vim-illuminate" {
       :config (setup! :illuminate)
    })
