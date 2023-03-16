@@ -14,13 +14,13 @@
 )
 
 (lambda setup! [name]
-   `(lambda [] 
-      (vim.schedule 
+   `(lambda []
+      (;;vim.schedule
          (lambda []
             (_G.logger:info ,(.. name " setup"))
-            (local (status_ok# _#) (xpcall 
+            (local (status_ok# _#) (xpcall
                (lambda [] (require ,(.. :user.setup. name)))
-               (lambda [err#] 
+               (lambda [err#]
                  (_G.logger:error err#)
                )
             ))
@@ -34,15 +34,15 @@
 )
 
 (lambda lite-setup! [name opt]
-   `(lambda [] 
-      (vim.schedule 
+   `(lambda []
+      (;;vim.schedule
          (lambda []
             (_G.logger:info ,(.. name " setup"))
-            (local (status_ok# _#) (xpcall 
-               (lambda [] 
-                  (let [mod# (require ,name)] 
-                     (mod#.setup opt)))
-               (lambda [err#] 
+            (local (status_ok# _#) (xpcall
+               (lambda []
+                  (let [mod# (require ,name)]
+                     (mod#.setup ,opt)))
+               (lambda [err#]
                  (_G.logger:error err#)
                )
             ))
@@ -55,8 +55,33 @@
    )
 )
 
+
+
+(lambda lazy-startup! [...]
+   (let
+      [use_sym (sym :use)
+      opts_sym (sym :opts)]
+      `(do
+         (local pkgs# {})
+         (var opts# {})
+         (local lazy# (require "lazy"))
+         (lambda ,use_sym [pkg#]
+            (table.insert pkgs# pkg#)
+         )
+         (lambda ,opts_sym [new_opts#]
+            (set opts# new_opts#)
+         )
+         (do
+            ,...
+         )
+         (_G.logger:info (_G.dump pkgs#))
+         (lazy#.setup pkgs# opts#)
+      )
+   )
+)
+
 { : use!
   : use-rocks!
   : setup!
-  : lite-setup!}
-
+  : lite-setup!
+  : lazy-startup! }

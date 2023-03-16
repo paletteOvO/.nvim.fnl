@@ -1,8 +1,8 @@
 (import-macros { : require-as! } :user.macros.require)
-(import-macros { : use! : use-rocks! : setup! : lite-setup! } :user.macros.packer)
+(import-macros { : use! : use-rocks! : setup! : lite-setup! : lazy-startup! } :user.macros.package)
 
 ;; Use a protected call so we don't error out on first use
-(local (status_ok packer) (pcall require :packer))
+(local (status_ok lazy) (pcall require :lazy))
 (if (not status_ok)
    (lua "return")
 )
@@ -12,17 +12,17 @@
 (set vim.g.mapleader " ")
 
 ;; Have packer use a popup window
-(packer.init {
-   :display {
-      :open_fn (lambda [] ((. (require "packer.util") :float) {
-         :border "single"
-      }))
-   }
-   :autoremove true
-})
+; (packer.init {
+;    :display {
+;       :open_fn (lambda [] ((. (require "packer.util") :float) {
+;          :border "single"
+;       }))
+;    }
+;    :autoremove true
+; })
 
 ;; Install your plugins here
-(packer.startup (fn [use use_rocks]
+(lazy-startup!
    ;; (use-rocks! "fun")
    (use! "dstein64/vim-startuptime" {
       :cmd [ "StartupTime" ]
@@ -51,7 +51,7 @@
    ;; (use! "ibhagwan/fzf-lua")
 
    (use! "eraserhd/parinfer-rust" {
-      :run "cargo build --release"
+      :build "cargo build --release"
       :config (lambda []
          (set vim.g.parinfer_mode "paren")
       )
@@ -75,6 +75,7 @@
    ;; Nvim-tree
    (use! "kyazdani42/nvim-tree.lua" {
       :config (setup! :nvim-tree)
+      :cmd [ "NvimTreeToggle" ]
    })
    (use! "kyazdani42/nvim-web-devicons" {
    })
@@ -114,8 +115,8 @@
    ;; (use! "lunarvim/darkplus.nvim")
    (use! "catppuccin/nvim" {
       :as "catppuccin"
-      :run (lambda [] (let 
-         [cat (require "catppuccin")] 
+      :build (lambda [] (let
+         [cat (require "catppuccin")]
          (cat.compile)
       ))
    })
@@ -126,6 +127,9 @@
    ;; cmp plugins
    (use! "hrsh7th/nvim-cmp")
    (use! "hrsh7th/cmp-buffer")
+   (use! "tzachar/fuzzy.nvim" {
+      :requires ["nvim-telescope/telescope-fzf-native.nvim"]
+   })
    (use! "tzachar/cmp-fuzzy-buffer" {
       :requires ["tzachar/fuzzy.nvim"]
    })
@@ -227,18 +231,18 @@
    (use! "lervag/vimtex" {
       :config (setup! :vimtex)
    })
-   
+
    ;; Telescope
    (use! "nvim-telescope/telescope.nvim" {
       :config (setup! :telescope)
    })
    (use! "nvim-telescope/telescope-fzf-native.nvim" {
-      :run "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
+      :build "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
    })
 
    ;; Treesitter/Highlighting
    (use! "nvim-treesitter/nvim-treesitter" {
-      :run ":TSUpdate"
+      :build ":TSUpdate"
       :as "nvim-treesitter"
       :config (setup! :treesitter)
    })
@@ -248,7 +252,7 @@
    (use! "JoosepAlviste/nvim-ts-context-commentstring" {
       :after ["nvim-treesitter"]
    })
-   
+
    (use! "nvim-treesitter/nvim-treesitter-context")
    (use! "nvim-treesitter/nvim-treesitter-textobjects")
    (use! "ziontee113/syntax-tree-surfer")
@@ -258,15 +262,15 @@
    })
    (use! "kylechui/nvim-surround")
    (use! "rrethy/vim-hexokinase" {
-      :run "make hexokinase"
+      :build "make hexokinase"
       :event "BufNew"
       :config (lambda [] (set vim.g.Hexokinase_highlighters [ "backgroundfull" "virtual" ]))
    })
    (use! "windwp/nvim-ts-autotag" {
-      :ft ["html" "javascript" "typescript" "javascriptreact" "typescriptreact" "svelte" "vue" "tsx" "jsx" "rescript" 
-           "xml" 
-           "php" 
-           "markdown" 
+      :ft ["html" "javascript" "typescript" "javascriptreact" "typescriptreact" "svelte" "vue" "tsx" "jsx" "rescript"
+           "xml"
+           "php"
+           "markdown"
            "glimmer" "handlebars" "hbs"]
       :config (lambda [] (local x (require :nvim-ts-autotag)) (x.setup))
    })
@@ -327,12 +331,12 @@
       :cmd ["DAPEnable"]
       :config (setup! :dap)
    })
-   
+
    ;; Markdown
    (use! "iamcco/markdown-preview.nvim" {
       :ft ["markdown" "md"]
       :config (setup! :markdown-preview)
-      :run (lambda [] 
+      :build (lambda []
          ((. vim.fn "mkdp#util#install"))
       )
    })
@@ -348,7 +352,7 @@
       :config (setup! :orgmode)
    })
    ;; Misc
-   
+
    ;; (use! "Pocco81/TrueZen.nvim" {
    ;;    :cmd [ "TZMinimalist" "TZFocus" "TZAtaraxis" "TZAtaraxisOn" "TZMinimalistOn" "TZFocusOn" ]
    ;;    :config (setup! :true_zen)
@@ -373,15 +377,20 @@
       :config (setup! :code_runner)
    })
 
-   (require-as! packer :packer)
+   (opts {
+      :defaults {
+         :lazy false
+      }
+   })
 
-   (packer.compile)
+   ; (require-as! packer :packer)
 
-   (if (. vim.g "nya#bootstrap" "wbthomason/packer.nvim")
-      (do
-         (print "PackerSync")
-         (packer.sync)
-      )
-   )
-))
+   ; (packer.compile)
 
+   ; (if (. vim.g "nya#bootstrap" "wbthomason/packer.nvim")
+   ;    (do
+   ;       (print "PackerSync")
+   ;       (packer.sync)
+   ;    )
+   ; )
+)

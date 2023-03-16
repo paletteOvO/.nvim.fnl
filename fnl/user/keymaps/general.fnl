@@ -64,7 +64,7 @@
    (local neoscroll (require "neoscroll"))
    (neoscroll.scroll 10 true 240 nil)
 ))
-(keymap :n "K" (. (require "hover") :hover))
+(keymap :n "K" (lambda [] ((. (require "hover") :hover))))
 
 (keymap :i "<C-o>" "<esc>o")
 (keymap :i "<C-S-o>" "<esc>O")
@@ -140,4 +140,3 @@
 
 (keymap :v "<A-Left>" "<gv")
 (keymap :v "<A-Right>" ">gv")
-
