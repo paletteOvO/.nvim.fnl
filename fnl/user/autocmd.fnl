@@ -9,13 +9,13 @@
 
 ;; Use 'q' to quit from common plugins
 (autocmd! "FileType" {
-      :pattern ["notify" "startuptime" "qf" "help" "man" "lspinfo" "spectre_panel" "lir"]
-      :callback (lambda []
-               (vim.cmd "nnoremap <silent> <buffer> q :close<CR>
-                                  set nobuflisted"
-                        )
-            )
-   })
+   :pattern ["notify" "startuptime" "qf" "help" "man" "lspinfo" "spectre_panel" "lir"]
+   :callback (lambda []
+      (vim.cmd "nnoremap <silent> <buffer> q :close<CR>
+                set nobuflisted"
+      )
+   )
+})
 
 ;; Fixes Autocomment
 (autocmd! "BufWinEnter"
@@ -48,7 +48,6 @@
 ;; Remove statusline and tabline when in Alpha
 ; (_G.)
 (tset vim.g "nya#alpha_leave" false)
-(vim.cmd "autocmd User AlphaLeave echo")
 
 (autocmd! "User" {
    :pattern [ "AlphaLeave" ]

@@ -244,7 +244,7 @@
    ;;    :config (setup! :pretty-fold)
    ;; })
    (use! "jose-elias-alvarez/typescript.nvim" {
-      :ft ["typescript"]
+      :ft ["typescript" "typescriptreact"]
       :config (setup! :typescript_nvim)
    })
    (use! "folke/trouble.nvim" {
