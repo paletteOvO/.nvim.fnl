@@ -77,10 +77,15 @@ M.on_attach = function(client, bufnr)
 
    lsp_keymaps(bufnr)
    local status_ok, illuminate = pcall(require, "illuminate")
-   if not status_ok then
-      return
+   if status_ok then
+      illuminate.on_attach(client)
    end
-   illuminate.on_attach(client)
+   --
+   local status_ok, lsp_signature = pcall(require, "lsp_signature")
+   if status_ok then
+      lsp_signature.on_attach()
+      logger:info("lsp_signature on_attach")
+   end
 end
 
 M.flags = {

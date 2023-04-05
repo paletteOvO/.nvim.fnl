@@ -5,8 +5,8 @@
 (_G.logger:info "neo-tree setup")
 (neo-tree.setup {
    :close_if_last_window true
-   :popup_border_style "rounded"
-   :use_popups_for_input false
+   :popup_border_style "single"
+   :use_popups_for_input true
    :sort_case_insensitive true
    :window {
       :width 30

@@ -32,7 +32,7 @@
 (opt! :ruler false)
 (opt! :numberwidth 2)                         ;; set number column width to 2 {default 4}
 (opt! :signcolumn "yes:1")                      ;; always show the sign column, otherwise it would shift the text each time
-(opt! :wrap false)                            ;; display lines as one long line
+(opt! :wrap true)                            ;; display lines as one long line
 (opt! :scrolloff 8)                           ;; is one of my fav
 (opt! :sidescrolloff 8)
 (opt! :relativenumber true)

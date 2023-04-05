@@ -22,12 +22,13 @@
    (vim.cmd "set formatoptions-=cro")
 )
 
-;; Set to normal mode when entering NvimTree
+;; Set to normal mode when entering NvimTree/Neotree
 (autocmd! "WinEnter" {
    :pattern "*"
    :callback (lambda [] 
       (if (or 
             (= vim.bo.filetype "NvimTree")
+            (= vim.bo.filetype "neo-tree")
             (= vim.bo.filetype "minimap")
          )
           (vim.cmd "stopinsert")

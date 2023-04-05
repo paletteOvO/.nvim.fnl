@@ -9,6 +9,7 @@
       :selection_caret " "
       :path_display [ "smart" ]
       :file_ignore_patterns [ ".git/" "node_modules" ]
+      :preview { :treesitter false }
       :mappings {
          :i {
             "<C-Down>" actions.cycle_history_next

@@ -78,7 +78,8 @@
 (keymap :n "<A-Right>" "V>")
 
 ;; Close Buffer
-(keymap :n "<S-q>" "<cmd>Bdelete!<CR>")
+; TODO: fix it for neotree
+; (keymap :n "<S-q>" "<cmd>Bdelete!<CR>")
 
 (keymap :n "<S-n>" (lambda []
    (let-require! [illuminate :illuminate]
@@ -119,6 +120,7 @@
 
 ;; quick fix
 (keymap :i "<A-f>" (lambda [] ((. (require :nvim-lightbulb) :update_lightbulb))))
+(keymap :i "<A-a>" (lambda [] (vim.cmd "CodeActionMenu")))
 
 (keymap :i "<C-Up>" (lambda []
    (local neoscroll (require "neoscroll"))

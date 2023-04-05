@@ -92,7 +92,7 @@
    (use! "nvim-neo-tree/neo-tree.nvim" {
       :branch "v2.x"
       :config (setup! :neotree)
-      :cmd [ "Neotree" ]
+      :cmd [ "Neotree" "NeoTreeShowToggle" ]
       ; :event "User AlphaLeave"
    })
    ; (use! "kyazdani42/nvim-web-devicons" {
@@ -189,6 +189,10 @@
    (use! "williamboman/mason-lspconfig" {
       :cmd [ "Mason" ]
       :event "User AlphaLeave"
+   })
+   (use! "ray-x/lsp_signature.nvim" {
+      :event "User AlphaLeave"
+      :config (setup! :lsp_signature)
    })
 
    ;; for formatters and linters
@@ -296,6 +300,9 @@
    (use! "nvim-treesitter/nvim-treesitter-textobjects" {
    })
    (use! "ziontee113/syntax-tree-surfer")
+   (use! "kaarmu/typst.vim" {
+      :ft "typ"
+   })
 
    (use! "monkoose/matchparen.nvim" {
       :config (setup! :matchparen)
@@ -334,7 +341,6 @@
 
    ;; git
    (use! "lewis6991/gitsigns.nvim" {
-      :event "User AlphaLeave"
       :config (setup! :gitsigns)
    })
 
@@ -425,7 +431,7 @@
          ; :lazy true
       }
       :ui {
-         :border "rounded"
+         :border "single"
          :icons {
             :cmd "⌘"
             :config "🛠"

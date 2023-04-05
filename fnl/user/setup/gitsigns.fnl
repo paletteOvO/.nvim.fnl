@@ -1,11 +1,10 @@
 (import-macros { : require-as! } :user.macros.require)
 
 (require-as! gitsigns :gitsigns)
-
 (gitsigns.setup {
    :current_line_blame true
    :current_line_blame_opts {
-      :delay 0
+      :delay 50
    }
    :signs {
       :add { :hl  "GitSignsAdd" :text  "▎" :numhl "GitSignsAddNr" :linehl "GitSignsAddLn" }
