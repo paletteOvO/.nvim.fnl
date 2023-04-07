@@ -385,16 +385,16 @@
       )
    })
    ;; (n)org
-   (use! "nvim-neorg/neorg" {
-      :ft ["norg"]
-      :dependencies ["nvim-treesitter"]
-      :config (setup! :neorg)
-   })
-   (use! "nvim-orgmode/orgmode" {
-      :ft ["org"]
-      :dependencies ["nvim-treesitter"]
-      :config (setup! :orgmode)
-   })
+   ; (use! "nvim-neorg/neorg" {
+   ;    :ft ["norg"]
+   ;    :dependencies ["nvim-treesitter"]
+   ;    :config (setup! :neorg)
+   ; })
+   ; (use! "nvim-orgmode/orgmode" {
+   ;    :ft ["org"]
+   ;    :dependencies ["nvim-treesitter"]
+   ;    :config (setup! :orgmode)
+   ; })
    ;; Misc
 
    ;; (use! "Pocco81/TrueZen.nvim" {
