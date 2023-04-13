@@ -1,8 +1,11 @@
 vim.bo.indentexpr = "g:GetFennelIndent(v:lnum)"
+vim.bo.autoindent = false
 
 local indentation_regex = vim.regex([[^\s\+]])
 
 local function get_indentation_for_line(line)
+   -- logger:debug("get_indentation_for_line: " .. line)
+
    local istart, iend = indentation_regex:match_str(line)
 
    if istart ~= nil then
@@ -86,6 +89,7 @@ local function find_left_bucket(lines, lnum, cur, counting)
 end
 
 function vim.g.GetFennelIndent()
+   -- logger:debug("GetFennelIndent")
    local pos = vim.fn.getpos(".")
    -- local cur = pos[1]
    local lnum = pos[2]
