@@ -99,6 +99,7 @@
    ; })
 
    ; (use! "akinsho/bufferline.nvim" {
+   ;    ; :event "User AlphaLeave"
    ;    :config (setup! :bufferline)
    ; })
    (use! "nvim-lualine/lualine.nvim" {
@@ -227,11 +228,11 @@
    ;; (use! "/home/shironya/.config/nvim/lsp_lines.nvim" {
    ;;    :config (setup! :lsp_lines)
    ;; })
-   (use! "https://git.sr.ht/~whynothugo/lsp_lines.nvim" {
-      :event "User AlphaLeave"
-      :dependencies ["nvim-lspconfig"]
-      :config (setup! :lsp_lines)
-   })
+   ; (use! "https://git.sr.ht/~whynothugo/lsp_lines.nvim" {
+   ;    :event "User AlphaLeave"
+   ;    :dependencies ["nvim-lspconfig"]
+   ;    :config (setup! :lsp_lines)
+   ; })
    (use! "lvimuser/lsp-inlayhints.nvim" {
       :event "User AlphaLeave"
       :dependencies ["nvim-lspconfig"]
@@ -252,7 +253,7 @@
       :config (setup! :typescript_nvim)
    })
    (use! "folke/trouble.nvim" {
-      :event "User AlphaLeave"
+      ; :event "User AlphaLeave"
       :config (setup! :trouble)
    })
    (use! "weilbith/nvim-code-action-menu" {

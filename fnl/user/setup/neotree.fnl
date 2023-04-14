@@ -2,7 +2,7 @@
 
 (vim.cmd "let g:neo_tree_remove_legacy_commands = 1")
 (require-as! neo-tree :neo-tree)
-(_G.logger:info "neo-tree setup")
+
 (neo-tree.setup {
    :close_if_last_window true
    :popup_border_style "single"
@@ -12,6 +12,16 @@
       :width 30
       :mappings {
          "<space>" :none
+      }
+   }
+   :default_component_configs  {
+      :indent {
+         :indent_size 2
+      }
+      :icon {
+         :folder_closed ""
+         :folder_empty ""
+         :folder_open ""
       }
    }
    :source_selector {
@@ -39,10 +49,12 @@
    }
    :buffers {
       :follow_current_file true
-   }
-   :default_component_configs {
-      :indent {
-         :indent_size 2
+      :window {
+         :mappings {
+            :bd "buffer_delete"
+            :d "buffer_delete"
+            "<DEL>" "buffer_delete"
+         }
       }
    }
 })

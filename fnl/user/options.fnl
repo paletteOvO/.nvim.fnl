@@ -1,5 +1,5 @@
 (macro opt! [name value] `(tset vim.opt ,name ,value))
-
+(opt! :showtabline 0) 
 (opt! :backup false)                          ;; creates a backup file
 (opt! :clipboard "unnamedplus")               ;; allows neovim to access the system clipboard
 (opt! :cmdheight 1)                           ;; more space in the neovim command line for displaying messages
@@ -11,7 +11,7 @@
 (opt! :mouse "a")                             ;; allow the mouse to be used in neovim
 (opt! :pumheight 10)                          ;; pop up menu height
 (opt! :showmode false)                        ;; we don't need to see things like -- INSERT ;; anymore
-(opt! :showtabline 0)                         ;; always show tabs
+(opt! :showtabline 0)                         ;; no tabs by default
 (opt! :smartcase true)                        ;; smart case
 (opt! :smartindent true)                      ;; make indenting smarter again
 (opt! :splitbelow true)                       ;; force all horizontal splits to go below current window

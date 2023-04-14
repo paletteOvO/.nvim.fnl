@@ -11,7 +11,7 @@
             :text (lambda [] (string.gsub (vim.fn.getcwd) "/home/shironya" "~"))
             :padding 0
             :text_align "left"
-            :filetype "NvimTree"
+            :filetype "neo-tree"
             :highlight "Directory"
          }
       ]

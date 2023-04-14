@@ -14,9 +14,9 @@ M.setup = function()
 
    local config = {
       virtual_text = {
-         severity = { min = 0, max = 0 },
+         -- severity = { min = 0, max = 0 },
       },
-      virtual_lines = true,
+      -- virtual_lines = true,
       signs = {
          active = signs, -- show signs
       },
