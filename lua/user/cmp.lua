@@ -37,7 +37,7 @@ cmp.setup({
          if cmp.visible() then
             local entry = cmp.get_selected_entry()
             if not entry then
-               fallback()
+               cmp.confirm()
             else
                cmp.confirm()
             end
@@ -48,14 +48,16 @@ cmp.setup({
    }),
 
    sources = {
-      { name = "copilot" },
+      { name = "copilot", priority_weight = 100 },
       { name = "nvim_lsp" },
       { name = "nvim_lua" },
-      { name = "luasnip" },
+      { name = "luasnip", priority_weight = 50, max_item_count = 2 },
       -- { name = "buffer" },
       -- { name = "path" },
       {
          name = "fuzzy_buffer",
+         max_item_count = 4,
+         priority_weight = 12,
          option = {
             max_matches = 5,
             get_bufnrs = function()
@@ -70,7 +72,7 @@ cmp.setup({
             end,
          },
       },
-      { name = "fuzzy_path" },
+      { name = "fuzzy_path", priority_weight = 25, max_item_count = 2 },
    },
    sorting = {
       priority_weight = 2,
@@ -103,8 +105,9 @@ cmp.setup({
       format = function(entry, vim_item)
          local kind = require("lspkind").cmp_format({ mode = "symbol_text" })(entry, vim_item)
          local strings = vim.split(kind.kind, "%s", { trimempty = true })
+
+         kind.menu = " (" .. (strings[2] or string.gsub(kind.kind, "^%s*(.-)%s*$", "%1")) .. ")"
          kind.kind = " " .. (strings[1] or "") .. " "
-         kind.menu = "    (" .. (strings[2] or "") .. ")"
 
          return kind
       end,

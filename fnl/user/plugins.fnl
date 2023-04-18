@@ -154,14 +154,17 @@
    (use! "hrsh7th/cmp-nvim-lsp")
    (use! "hrsh7th/cmp-nvim-lua")
    (use! "saadparwaiz1/cmp_luasnip")
-   (use! "onsails/lspkind.nvim")
+   (use! "onsails/lspkind.nvim" {
+      :config (setup! :lspkind)
+   })
 
-   ;; (use! "github/copilot.vim") ;; for setup copilot
+   ; (use! "github/copilot.vim") ;; for setup copilot
    (use! "zbirenbaum/copilot.lua" {
       :config (setup! :copilot)
    })
    (use! "zbirenbaum/copilot-cmp" {
       :module "copilot_cmp"
+      :config (setup! :copilot_cmp)
       :dependencies [
          "copilot.lua"
          "nvim-cmp"

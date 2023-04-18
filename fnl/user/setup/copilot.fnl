@@ -5,5 +5,8 @@
    :panel {
       :enable false
    }
+   :suggestion {
+      :enable false
+   }
    :ft_disable [ "alpha" "Telescope" "TelescopePrompt"]
 })
