@@ -120,8 +120,8 @@
 
 ;; quick fix
 (keymap :i "<A-f>" (lambda [] ((. (require :nvim-lightbulb) :update_lightbulb))))
-(keymap :n "<C-.>" (lambda [] (vim.cmd "CodeActionMenu")))
-(keymap :i "<C-.>" (lambda [] (vim.cmd "CodeActionMenu")))
+(keymap :n "<A-a>" (lambda [] (vim.cmd "CodeActionMenu")))
+(keymap :i "<A-a>" (lambda [] (vim.cmd "CodeActionMenu")))
 
 (keymap :i "<C-Up>" (lambda []
    (local neoscroll (require "neoscroll"))

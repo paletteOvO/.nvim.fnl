@@ -8,7 +8,6 @@ local servers = {
    "cssls",
    "html",
    "tsserver",
-   "ruff",
    "ruff_lsp",
    "bashls",
    "jsonls",
@@ -18,6 +17,9 @@ local servers = {
    "texlab",
    "jdtls",
    "fennel_language_server",
+   "zls",
+   "tailwindcss",
+   "jsonls",
 }
 
 lsp_installer.setup()
