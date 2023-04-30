@@ -91,3 +91,10 @@
                       (vim.lsp.buf.format)
                       )
           })
+
+(vim.cmd "
+augroup change_cursor
+   au!
+   au ExitPre * :set guicursor=a:hor20
+augroup END
+")
