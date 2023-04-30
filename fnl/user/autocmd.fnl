@@ -95,6 +95,6 @@
 (vim.cmd "
 augroup change_cursor
    au!
-   au ExitPre * :set guicursor=a:hor20
+   au VimLeave * :set guicursor=a:hor20
 augroup END
 ")
