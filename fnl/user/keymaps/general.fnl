@@ -98,7 +98,7 @@
 ;; -- Insert --
 (keymap :i "<C-z>" "<cmd>silent undo<CR>")
 (keymap :i "<C-y>" "<cmd>silent redo<CR>")
-(keymap :i "<C-s>" "<cmd>write!<CR>")
+(keymap :i "<C-s>" "<cmd>write!<CR><ESC>")
 (keymap :i "<C-c>" "<cmd>.yank<cr>")
 (keymap :i "<C-v>" "<esc>\"_dPa")
 

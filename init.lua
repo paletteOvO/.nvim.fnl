@@ -2,6 +2,10 @@
 --    logger:info(...)
 -- end
 
+vim.cmd([[
+  let g:neovide_transparency=0.8
+]])
+
 function _G.dump(o)
    if type(o) == "table" then
       local s = "{ "

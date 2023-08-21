@@ -65,7 +65,7 @@
          { 1 "mode" :fmt (lambda [str] (.. " " str)) :separator { :left "" :right "" } :right_padding 2 }
       ]
       :lualine_b [ "branch" ]
-      :lualine_c [ lsp_server diagnostics ]
+      :lualine_c [ "filename" lsp_server diagnostics ]
       :lualine_x [ diff spaces :encoding filetype ]
       :lualine_y [ { 1 "location" :padding 1 :separator { :left "" :right ""} } ]
       :lualine_z []

@@ -55,5 +55,6 @@
 ;; (set vim.g.copilot_ignore_node_version true)
 
 ;; GUI
-(opt! :guifont "BlexMono Nerd Font:h10")               ;; the font used in graphical neovim applications
-;; (opt! :guifont "Cascadia Mono PL:h12")
+; (opt! :guifont "BlexMono Nerd Font:h10")               ;; the font used in graphical neovim applications
+(opt! :guifont "JuliaMono:h10")
+(opt! :linespace 1)

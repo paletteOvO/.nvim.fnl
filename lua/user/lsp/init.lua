@@ -3,17 +3,17 @@ if not status_ok then
    return
 end
 
--- local lsp = require("lsp-zero").preset({})
---
--- lsp.on_attach(function(client, bufnr)
---    lsp.default_keymaps({ buffer = bufnr })
--- end)
---
--- lsp.setup()
+local lsp = require("lsp-zero").preset({})
+
+lsp.on_attach(function(client, bufnr)
+   lsp.default_keymaps({ buffer = bufnr })
+end)
 
 require("user.lsp.lsp-installer")
 require("user.lsp.handlers").setup()
 require("user.lsp.null-ls")
+
+lsp.setup()
 
 -- vim.api.nvim_create_autocmd("InsertEnter", {
 --    callback = function()

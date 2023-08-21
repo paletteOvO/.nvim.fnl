@@ -31,15 +31,23 @@ cmp.setup({
       ["<Esc>"] = cmp.mapping.abort(),
       -- Accept currently selected item. If none selected, `select` first item.
       -- Set `select` to `false` to only confirm explicitly selected items.
-      ["<CR>"] = cmp.mapping.confirm({ select = false }),
+      ["<CR>"] = cmp.mapping.confirm({
+         behavior = cmp.ConfirmBehavior.Replace,
+         select = false,
+      }),
       ["<Tab>"] = cmp.mapping(function(fallback)
          -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
          if cmp.visible() then
             local entry = cmp.get_selected_entry()
             if not entry then
-               cmp.confirm()
+               cmp.confirm({
+                  behavior = cmp.ConfirmBehavior.Replace,
+               })
             else
-               cmp.confirm()
+               cmp.confirm({
+                  behavior = cmp.ConfirmBehavior.Replace,
+                  select = false,
+               })
             end
          else
             fallback()
@@ -48,7 +56,8 @@ cmp.setup({
    }),
 
    sources = {
-      { name = "copilot", priority_weight = 100 },
+      { name = "copilot", priority_weight = 100, max_item_count = 1 },
+      { name = "cmp_tabnine", priority_weight = 95, max_item_count = 2 },
       { name = "nvim_lsp" },
       { name = "nvim_lua" },
       { name = "luasnip", priority_weight = 50, max_item_count = 2 },
@@ -56,7 +65,7 @@ cmp.setup({
       -- { name = "path" },
       {
          name = "fuzzy_buffer",
-         max_item_count = 4,
+         max_item_count = 2,
          priority_weight = 12,
          option = {
             max_matches = 5,
@@ -72,12 +81,13 @@ cmp.setup({
             end,
          },
       },
-      { name = "fuzzy_path", priority_weight = 25, max_item_count = 2 },
+      { name = "fuzzy_path", priority_weight = 25, max_item_count = 1 },
    },
    sorting = {
       priority_weight = 2,
       comparators = {
          require("cmp_fuzzy_buffer.compare"),
+         require("cmp_tabnine.compare"),
          compare.offset,
          compare.exact,
          compare.score,

@@ -170,6 +170,11 @@
          "nvim-cmp"
       ]
    })
+   (use! "tzachar/cmp-tabnine" {
+      :build "./install.sh"
+      :config (setup! :tabnine)
+      :dependencies ["hrsh7th/nvim-cmp"]
+   })
 
    ;; snippets
    (use! "L3MON4D3/LuaSnip" {
@@ -188,6 +193,7 @@
    (use! "williamboman/mason.nvim" {
       :cmd [ "Mason" ]
       :event "User AlphaLeave"
+      :build (lambda [] (pcall vim.cmd "MasonUpdate"))
       ;; :config (setup! :mason)
    })
    (use! "williamboman/mason-lspconfig" {
@@ -204,9 +210,9 @@
       :event "User AlphaLeave"
       :dependencies ["nvim-lspconfig"]
    })
-   ; (use! "VonHeikemen/lsp-zero.nvim" {
-   ;    :branch "v2.x"
-   ; })
+   (use! "VonHeikemen/lsp-zero.nvim" {
+      :branch "v2.x"
+   })
    (use! "RRethy/vim-illuminate" {
       :event "User AlphaLeave"
       :config (setup! :illuminate)
@@ -337,16 +343,15 @@
    ;;    :config (setup! :guess-indent)
    ;; })
    (use! "Darazaki/indent-o-matic" {
-
       :event "User AlphaLeave"
       :config (setup! :indent-o-matic)
    })
-
 
    ;; git
    (use! "lewis6991/gitsigns.nvim" {
       :config (setup! :gitsigns)
    })
+   (use! "rhysd/conflict-marker.vim")
 
    (use! "sindrets/diffview.nvim" {
    })
@@ -381,13 +386,13 @@
    })
 
    ;; Markdown
-   (use! "iamcco/markdown-preview.nvim" {
-      :ft ["markdown" "md"]
-      :config (setup! :markdown-preview)
-      :build (lambda []
-         ((. vim.fn "mkdp#util#install"))
-      )
-   })
+   ; (use! "iamcco/markdown-preview.nvim" {
+   ;    :ft ["markdown" "md"]
+   ;    :config (setup! :markdown-preview)
+   ;    :build (lambda []
+   ;       ((. vim.fn "mkdp#util#install"))
+   ;    )
+   ; })
    ;; (n)org
    ; (use! "nvim-neorg/neorg" {
    ;    :ft ["norg"]

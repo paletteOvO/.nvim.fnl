@@ -30,5 +30,6 @@
       :Operator ""
       :TypeParameter "󰰤"
       :Copilot ""
+      :TabNine "󰋙"
    }   
 })

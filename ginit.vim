@@ -1,4 +1,3 @@
 GuiTabline 0
 GuiPopupmenu 0
-GuiLinespace -2
-
+let g:neovide_transparency=0.8

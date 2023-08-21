@@ -84,13 +84,13 @@
                       (set vim.opt_local.spell true))})
 
 
-(autocmd! "BufWritePre" {
-          ;; group = "lsp_format_on_save",
-          :pattern []
-          :callback (lambda []
-                      (vim.lsp.buf.format)
-                      )
-          })
+; (autocmd! "BufWritePost" {
+;           ;; group = "lsp_format_on_save",
+;           :pattern []
+;           :callback (lambda []
+;                       (vim.lsp.buf.format)
+;                       )
+;           })
 
 (vim.cmd "
 augroup change_cursor
