@@ -3,17 +3,9 @@ if not status_ok then
    return
 end
 
-local lsp = require("lsp-zero").preset({})
-
-lsp.on_attach(function(client, bufnr)
-   lsp.default_keymaps({ buffer = bufnr })
-end)
-
 require("user.lsp.lsp-installer")
 require("user.lsp.handlers").setup()
 require("user.lsp.null-ls")
-
-lsp.setup()
 
 -- vim.api.nvim_create_autocmd("InsertEnter", {
 --    callback = function()
@@ -44,3 +36,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.cmd("hi link LspInlayHint Comment")
    end,
 })
+
+local status_ok, ufo = pcall(require, "ufo")
+if status_ok then
+   ufo.setup()
+end

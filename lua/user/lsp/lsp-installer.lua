@@ -27,7 +27,7 @@ local servers = {
 
 lsp_installer.setup()
 
-require("mason-lspconfig").setup({ automatic_installation = true })
+require("mason-lspconfig").setup({ ensure_installed = servers,  automatic_installation = true })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status_ok then
@@ -48,5 +48,18 @@ for _, server in pairs(servers) do
       opts = vim.tbl_deep_extend("force", custom_opts, opts)
    end
 
-   lspconfig[server].setup(opts)
+   logger:info("setting up " .. server)
+
+   -- skip rust as it's handled by rust-tools.nvim
+   if server == "rust_analyzer" then
+      logger:info("skipping rust_analyzer")
+   else
+      lspconfig[server].setup(opts)
+   end
+
+
 end
+
+
+
+

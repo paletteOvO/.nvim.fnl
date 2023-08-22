@@ -65,17 +65,37 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+   logger:info(client.name .. " attached")
+
+   local caps = client.server_capabilities
+
    if client.name == "tsserver" then
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.diagnosticProvider = false
+      caps.documentFormattingProvider = false
+      caps.diagnosticProvider = false
       client.handlers["textDocument/publishDiagnostics"] = function() end
    end
 
    if client.name == "lua_ls" then
-      client.server_capabilities.documentFormattingProvider = false
+      caps.documentFormattingProvider = false
    end
 
-   lsp_keymaps(bufnr)
+   if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+      local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
+      vim.api.nvim_create_autocmd("TextChanged", {
+         group = augroup,
+         buffer = bufnr,
+         callback = function()
+            vim.treesitter.stop(bufnr)
+            vim.lsp.buf.semantic_tokens_full()
+         end,
+      })
+      -- fire it first time on load as well
+
+      vim.treesitter.stop(bufnr)
+      vim.lsp.buf.semantic_tokens_full()
+   end
+
+   -- lsp_keymaps(bufnr)
    local status_ok, illuminate = pcall(require, "illuminate")
    if status_ok then
       illuminate.on_attach(client)
@@ -86,17 +106,30 @@ M.on_attach = function(client, bufnr)
       lsp_signature.on_attach()
       logger:info("lsp_signature on_attach")
    end
+
+   local status_ok, lsp_zero = pcall(require, "lsp-zero")
+   if status_ok then
+      lsp_zero.preset({}).default_keymaps({ buffer = bufnr })
+   end
 end
 
 M.flags = {
-   debounce_text_changes = 150,
+   debounce_text_changes = 180,
 }
 
-local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if status_cmp_ok then
-   M.capabilities = vim.lsp.protocol.make_client_capabilities()
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+
+local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if status_ok then
    M.capabilities.textDocument.completion.completionItem.snippetSupport = true
    M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
+end
+
+local status_ok, _ufo = pcall(require, "ufo")
+if status_ok then
+   M.capabilities.textDocument.foldingRange = {}
+   M.capabilities.textDocument.foldingRange.dynamicRegistration = false
+   M.capabilities.textDocument.foldingRange.lineFoldingOnly = true
 end
 
 return M

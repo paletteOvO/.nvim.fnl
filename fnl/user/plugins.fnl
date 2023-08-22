@@ -335,6 +335,16 @@
       :config (lambda [] (local x (require :tree-sitter-just)) (x.setup {}))
    })
 
+   (use! "theHamsta/nvim-semantic-tokens" {
+      :config (lambda [] 
+         (local x (require "nvim-semantic-tokens"))
+         (x.setup {
+            :preset "default"
+            :highlighters (require "nvim-semantic-tokens.table-highlighter")
+         })
+         )
+   })
+
    ;; formatters
    (use! "wesleimp/stylua.nvim" {
       :ft ["lua"]
