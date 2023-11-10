@@ -298,9 +298,6 @@
       :name "nvim-treesitter"
       :config (setup! :treesitter)
    })
-   (use! "p00f/nvim-ts-rainbow" {
-      :dependencies ["nvim-treesitter"]
-   })
    (use! "JoosepAlviste/nvim-ts-context-commentstring" {
       :dependencies ["nvim-treesitter"]
    })
