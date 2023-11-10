@@ -4,8 +4,8 @@
 
 (require-as! cat :catppuccin)
 
-(set vim.g.catppuccin_flavour "latte")
-;; (set vim.g.catppuccin_flavour "mocha")
+; (set vim.g.catppuccin_flavour "latte")
+(set vim.g.catppuccin_flavour "mocha")
 (require-as! catppuccin_palettes "catppuccin.palettes")
 
 (local colors ((. (require "catppuccin.palettes") :get_palette)))
@@ -83,7 +83,7 @@
          :enabled true
       }
       :cmp true
-      :gitsigns true
+      :gitsigns false
       :telescope true
       :native_lsp {
          :enabled true

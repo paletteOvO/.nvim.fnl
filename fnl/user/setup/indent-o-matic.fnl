@@ -4,6 +4,6 @@
 
 (indent-o-matic.setup {
    :max_lines 256
-   :standard_widths [3 2 1 4 8]
+   :standard_widths [3 2 4 8]
    :skip_multiline true
 })

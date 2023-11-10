@@ -3,7 +3,12 @@
 (require-as! fidget :fidget)
 
 (fidget.setup {
-   :text {
-      :spinner ["   " ".  " ".. " "..."]
+   :progress {
+      :display {
+         :progress_icon {
+            :pattern "dots"
+            :period 3
+         }
+      }
    }
 })

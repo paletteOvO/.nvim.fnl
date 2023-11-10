@@ -170,11 +170,11 @@
          "nvim-cmp"
       ]
    })
-   (use! "tzachar/cmp-tabnine" {
-      :build "./install.sh"
-      :config (setup! :tabnine)
-      :dependencies ["hrsh7th/nvim-cmp"]
-   })
+   ; (use! "tzachar/cmp-tabnine" {
+   ;    :build "./install.sh"
+   ;    :config (setup! :tabnine)
+   ;    :dependencies ["hrsh7th/nvim-cmp"]
+   ; })
 
    ;; snippets
    (use! "L3MON4D3/LuaSnip" {
@@ -358,9 +358,9 @@
    })
 
    ;; git
-   (use! "lewis6991/gitsigns.nvim" {
-      :config (setup! :gitsigns)
-   })
+   ; (use! "lewis6991/gitsigns.nvim" {
+   ;    :config (setup! :gitsigns)
+   ; })
    (use! "rhysd/conflict-marker.vim")
 
    (use! "sindrets/diffview.nvim" {

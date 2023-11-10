@@ -57,7 +57,7 @@ cmp.setup({
 
    sources = {
       { name = "copilot", priority_weight = 100, max_item_count = 1 },
-      { name = "cmp_tabnine", priority_weight = 95, max_item_count = 2 },
+      -- { name = "cmp_tabnine", priority_weight = 95, max_item_count = 2 },
       { name = "nvim_lsp" },
       { name = "nvim_lua" },
       { name = "luasnip", priority_weight = 50, max_item_count = 2 },
@@ -87,7 +87,7 @@ cmp.setup({
       priority_weight = 2,
       comparators = {
          require("cmp_fuzzy_buffer.compare"),
-         require("cmp_tabnine.compare"),
+         -- require("cmp_tabnine.compare"),
          compare.offset,
          compare.exact,
          compare.score,
